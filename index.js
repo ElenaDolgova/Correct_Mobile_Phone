@@ -76,7 +76,7 @@ function validateFIO(elems){
 };
 
 function validateEmail(elems){
-    var myPattern = /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(ya.ru|yandex.ru|yandex.ua|yandex.ua|yandex.kz|yandex.com)$/;
+    var myPattern = /^[-a-zА-Яа-я0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-zА-Яа-я0-9!#$%&'*+/=?^_`{|}~]+)*@(ya.ru|yandex.ru|yandex.ua|yandex.ua|yandex.kz|yandex.com)$/;
     var myString = elems.email.value.trim();
     if(myPattern.test(myString)){
         elems.email.className="";
@@ -87,34 +87,34 @@ function validateEmail(elems){
     }
 };
 
-window.onload = init;
+// window.onload = init;
 
-function init(){
-    var input = document.getElementById("myForm").phone.onkeypress = firstNumber;
-};
+// function init(){
+//     var input = document.getElementById("myForm").phone.onkeypress = firstNumber;
+// };
 
-function firstNumber(e){
-    e = e || window.event;
-    var input = document.getElementById("myForm").phone;
-    if((input.value.length<=15)&&e.keyCode<=57&&e.keyCode>=48){
-    if(input.value==""){
-        if ((e.keyCode === 55)||(e.keyCode === 56)) {
-            input.value = "+7(";
-            return false;
-        }else if(e.keyCode<=57&&e.keyCode>=48){
-            input.value = "+7(";
-        }
-    }else if(input.value.length==6){
-        input.value = input.value +")";
-    }else if(input.value.length==10){
-        input.value = input.value +"-";
-    }else if(input.value.length==13){
-        input.value = input.value +"-";
-    }
-}else{
-    return false;
-}
-};
+// function firstNumber(e){
+//     e = e || window.event;
+//     var input = document.getElementById("myForm").phone;
+//     if((input.value.length<=15)&&e.keyCode<=57&&e.keyCode>=48){
+//     if(input.value==""){
+//         if ((e.keyCode === 55)||(e.keyCode === 56)) {
+//             input.value = "+7(";
+//             return false;
+//         }else if(e.keyCode<=57&&e.keyCode>=48){
+//             input.value = "+7(";
+//         }
+//     }else if(input.value.length==6){
+//         input.value = input.value +")";
+//     }else if(input.value.length==10){
+//         input.value = input.value +"-";
+//     }else if(input.value.length==13){
+//         input.value = input.value +"-";
+//     }
+// }else{
+//     return false;
+// }
+// };
 
 function validatePhone(elems){
     var input = elems.phone.value;
