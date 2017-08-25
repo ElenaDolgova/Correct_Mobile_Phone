@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ru">
+    <head>            
+        <meta charset="utf-8">
+        <title>My Form</title>
+        <link rel="stylesheet" href="index.css" />
+    </head>
+    <body>
+        <form id="myForm">
+            <table>
+                    <tr>                                                    
+                        <td>ФИО</td>                            
+                        <td>                              
+                            <input name="fio" type="text">
+                        </td>
+                    </tr>
+                    <tr>                                                    
+                        <td>Электронный адрес</td>                            
+                        <td>                              
+                            <input name="email" type="text">
+                        </td>
+                    </tr>               
+                    <tr>                                                    
+                        <td>Телефонный номер</td>                            
+                        <td>                              
+                            <input name="phone" type="text" placeholder="+7(111)111-11-11">
+                        </td>
+                    </tr>                    
+            </table>
+            <input type="button" id="submitButton" onclick="MyForm.submit()" value="Проверить">
+        </form>
+        <div id="resultContainer"></div>
+        <script src="index.js"></script>
+    </body>
+</html>
