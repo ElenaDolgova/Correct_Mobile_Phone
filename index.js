@@ -34,10 +34,26 @@ MyForm = {
     submit: function(){
         var validateResult = this.validate();
         if(validateResult.isValid){
+            var arrayOfJson = ["success.json", "error.json", "progress.json"]; 
+            //var k =Math.floor(Math.random()*arrayOfJson.length);
             document.getElementById("submitButton").disabled=true;
             //SendRequest("success.json");
-            SendRequest("success.json", function(data) {
-                document.getElementById("resultContainer").innerHTML = data["status"];
+            //console.log(k);
+            //console.log(arrayOfJson[k]);
+            SendRequest(arrayOfJson[Math.floor(Math.random()*arrayOfJson.length)], function(data) {
+                //console.log(arrayOfJson[k]);
+                var container = document.getElementById("resultContainer");
+                if (data["status"]=="Success"){
+                    container.innerHTML = data["status"];
+                    container.className = data["status"].toLowerCase();
+                }else if(data["status"]=="Error"){
+                    container.innerHTML = data["status"]+", Reason: "+data["reason"];
+                    container.className = data["status"].toLowerCase();
+                }else if(data["status"]=="Progress"){
+                    container.innerHTML = data["status"];
+                    setTimeout('MyForm.submit()', data["timeout"]);  
+                    container.className = data["status"].toLowerCase();                  
+                }
             });
         }
     }
@@ -170,7 +186,7 @@ function SendRequest(url, callback)
     }
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            console.log('responseText:' + xmlhttp.responseText);
+            //console.log('responseText:' + xmlhttp.responseText);
             try {
                 var data = JSON.parse(xmlhttp.responseText);
             } catch(err) {
