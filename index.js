@@ -35,13 +35,8 @@ MyForm = {
         var validateResult = this.validate();
         if(validateResult.isValid){
             var arrayOfJson = ["success.json", "error.json", "progress.json"]; 
-            //var k =Math.floor(Math.random()*arrayOfJson.length);
             document.getElementById("submitButton").disabled=true;
-            //SendRequest("success.json");
-            //console.log(k);
-            //console.log(arrayOfJson[k]);
             SendRequest(arrayOfJson[Math.floor(Math.random()*arrayOfJson.length)], function(data) {
-                //console.log(arrayOfJson[k]);
                 var container = document.getElementById("resultContainer");
                 if (data["status"]=="Success"){
                     container.innerHTML = data["status"];
@@ -91,11 +86,6 @@ function validateEmail(elems){
         return false;
     }
 }
-
-// function validatePhone(elems){
-//     var phone = elems.phone.value;
-// }
-
 window.onload = init;
 
 function init(){
@@ -150,7 +140,6 @@ function getXmlHttp()
 
     if (window.XMLHttpRequest)
     {
-        //Gecko-совместимые браузеры, Safari, Konqueror
         Request = new XMLHttpRequest();
     }
     else if (window.ActiveXObject)
@@ -176,17 +165,14 @@ function getXmlHttp()
 
 function SendRequest(url, callback)
 {
-    //Создаём запрос
     var xmlhttp = getXmlHttp();
     
-    //Проверяем существование запроса еще раз
     if (!xmlhttp)
     {
         return;
     }
     xmlhttp.onreadystatechange = function() {
         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            //console.log('responseText:' + xmlhttp.responseText);
             try {
                 var data = JSON.parse(xmlhttp.responseText);
             } catch(err) {
@@ -194,52 +180,9 @@ function SendRequest(url, callback)
                 return;
             }
             callback(data);
-            // var statusElem = document.getElementById('resultContainer');
-            // statusElem.innerHTML = data;
-            // console.log("smth");
         }
     };
  
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
-
-   // var statusElem = document.getElementById('resultContainer');
-
-    //Назначаем пользовательский обработчик
-    // Request.onreadystatechange = function()
-    // {
-    //     //Если обмен данными завершен
-    //     if (Request.readyState == 4)
-    //     {
-    //         //Передаем управление обработчику пользователя
-    //         //r_handler(Request);
-    //        // statusElem.innerHTML = Request.statusText;// показать статус (Not Found, ОК..)
-    //     }
-    // }
-    // Request.open('GET', '/success.json', true);
-    // Request.send(null);
-    //statusElem.innerHTML = 'Ожидаю ответа сервера...';
-    //Проверяем, если требуется сделать GET-запрос
-    // if (r_method.toLowerCase() == "get" && r_args.length > 0)
-    // r_path += "?" + r_args;
-    
-    //Инициализируем соединение
-    // Request.open(r_method, r_path, true);
-    
-    // if (r_method.toLowerCase() == "post")
-    // {
-    //     //Если это POST-запрос
-        
-    //     //Устанавливаем заголовок
-    //     Request.setRequestHeader("Content-Type","application/x-www-form-urlencoded; charset=utf-8");
-    //     //Посылаем запрос
-    //     Request.send(r_args);
-    // }
-    // else
-    // {
-    //     //Если это GET-запрос
-        
-    //     //Посылаем нуль-запрос
-    //     Request.send(null);
-    // }
 } 
