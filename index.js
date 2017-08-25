@@ -36,7 +36,7 @@ MyForm = {
         if(validateResult.isValid){
             var arrayOfJson = ["success.json", "error.json", "progress.json"]; 
             document.getElementById("submitButton").disabled=true;
-            SendRequest(arrayOfJson[Math.floor(Math.random()*arrayOfJson.length)], function(data) {
+            sendRequest(arrayOfJson[Math.floor(Math.random()*arrayOfJson.length)], function(data) {
                 var container = document.getElementById("resultContainer");
                 if (data["status"]=="Success"){
                     container.innerHTML = data["status"];
@@ -52,7 +52,7 @@ MyForm = {
             });
         }
     }
-}
+};
 function validateFIO(elems){
     var fioArray = elems.fio.value.match(/\s[a-zA-Z0-9А-Яа-я]/g);
     var beginFio = elems.fio.value.match(/^\s/);
@@ -73,7 +73,7 @@ function validateFIO(elems){
         elems.fio.className = "error";
         return false;
         }
-}
+};
 
 function validateEmail(elems){
     var myPattern = /^[-a-z0-9!#$%&'*+/=?^_`{|}~]+(\.[-a-z0-9!#$%&'*+/=?^_`{|}~]+)*@(ya.ru|yandex.ru|yandex.ua|yandex.ua|yandex.kz|yandex.com)$/;
@@ -85,12 +85,13 @@ function validateEmail(elems){
         elems.email.className="error";
         return false;
     }
-}
+};
+
 window.onload = init;
 
 function init(){
     var input = document.getElementById("myForm").phone.onkeypress = firstNumber;
-}
+};
 
 function firstNumber(e){
     e = e || window.event;
@@ -113,7 +114,7 @@ function firstNumber(e){
 }else{
     return false;
 }
-}
+};
 
 function validatePhone(elems){
     var input = elems.phone.value;
@@ -133,49 +134,43 @@ function validatePhone(elems){
         elems.phone.className="";
         return true;
     }
-}
-function getXmlHttp()
-{
-    var Request = false;
+};
 
-    if (window.XMLHttpRequest)
-    {
-        Request = new XMLHttpRequest();
+function getXmlHttp(){
+    var request = false;
+
+    if (window.XMLHttpRequest){
+        request = new XMLHttpRequest();
     }
-    else if (window.ActiveXObject)
-    {
-        //Internet explorer
-        try
-        {
-             Request = new ActiveXObject("Microsoft.XMLHTTP");
+    else if (window.ActiveXObject){
+        try{
+             request = new ActiveXObject("Microsoft.XMLHTTP");
         }    
         catch (CatchException)
         {
-             Request = new ActiveXObject("Msxml2.XMLHTTP");
+             request = new ActiveXObject("Msxml2.XMLHTTP");
         }
     }
  
-    if (!Request)
-    {
+    if (!request){
         alert("Невозможно создать XMLHttpRequest");
     }
     
-    return Request;
-} 
+    return request;
+};
 
-function SendRequest(url, callback)
-{
+function sendRequest(url, callback){
     var xmlhttp = getXmlHttp();
-    
-    if (!xmlhttp)
-    {
+
+    if (!xmlhttp){
         return;
     }
-    xmlhttp.onreadystatechange = function() {
-        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-            try {
-                var data = JSON.parse(xmlhttp.responseText);
-            } catch(err) {
+    xmlhttp.onreadystatechange = function(){
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+            //console.log('responseText:' + xmlhttp.responseText);
+            try{
+                var data = JSON.parse(xmlhttp.responseText);}
+                catch(err){
                 console.log(err.message + " in " + xmlhttp.responseText);
                 return;
             }
@@ -185,4 +180,4 @@ function SendRequest(url, callback)
  
     xmlhttp.open("GET", url, true);
     xmlhttp.send();
-} 
+}; 
