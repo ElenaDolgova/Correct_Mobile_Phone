@@ -1,2 +1,2 @@
 # ya
-Корректность мобильного телефона
+The correctness of the mobile phone
